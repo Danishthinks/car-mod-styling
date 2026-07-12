@@ -6,9 +6,9 @@
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- Breadcrumb back link -->
-    <div class="mb-8 font-mono text-xs">
-        <a asp-action="Index" class="text-zinc-500 hover:text-rose-500 transition-colors uppercase">
-            &larr; Return to Inventory
+    <div class="mb-10 font-mono text-xs">
+        <a asp-action="Index" class="inline-block px-4 py-2 bg-zinc-950 hover:bg-zinc-900 border border-zinc-900 hover:border-zinc-700 text-zinc-500 hover:text-rose-500 uppercase transition-all rounded font-bold">
+            [ BACK // INVENTORY ]
         </a>
     </div>
 
@@ -17,15 +17,23 @@
         
         <!-- Left Side: Large Premium Image -->
         <div class="lg:col-span-7 space-y-4">
-            <div class="relative overflow-hidden bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl shadow-rose-950/10">
-                <img src="@Model.ImageUrl" alt="@Model.Name" 
-                     class="w-full h-[500px] object-cover object-center opacity-90"
-                     onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'400\' viewBox=\'0 0 600 400\'><rect width=\'100%\' height=\'100%\' fill=\'%230e0e11\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%233f3f46\' font-family=\'monospace\' font-size=\'18\'>IMAGE PENDING</text></svg>'">
-                
-                <!-- Category Floating Indicator -->
-                <span class="absolute top-6 left-6 px-3 py-1 text-xs font-mono tracking-widest bg-black/90 text-rose-500 uppercase border border-rose-500/30 rounded">
-                    @Model.Category
-                </span>
+            <div class="relative overflow-hidden bg-zinc-950 border border-zinc-900 rounded-xl shadow-2xl p-2">
+                <!-- Technical Corner Brackets on Image Wrapper -->
+                <div class="absolute top-[3px] left-[3px] w-4 h-4 border-t-2 border-l-2 border-rose-600 z-20"></div>
+                <div class="absolute top-[3px] right-[3px] w-4 h-4 border-t-2 border-r-2 border-rose-600 z-20"></div>
+                <div class="absolute bottom-[3px] left-[3px] w-4 h-4 border-b-2 border-l-2 border-rose-600 z-20"></div>
+                <div class="absolute bottom-[3px] right-[3px] w-4 h-4 border-b-2 border-r-2 border-rose-600 z-20"></div>
+
+                <div class="relative overflow-hidden rounded-lg">
+                    <img src="@Model.ImageUrl" alt="@Model.Name" 
+                         class="w-full h-[520px] object-cover object-center opacity-85 hover:scale-[1.01] transition-transform duration-500"
+                         onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'400\' viewBox=\'0 0 600 400\'><rect width=\'100%\' height=\'100%\' fill=\'%230e0e11\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%233f3f46\' font-family=\'monospace\' font-size=\'18\'>IMAGE PENDING</text></svg>'">
+                    
+                    <!-- Category Floating Indicator -->
+                    <span class="absolute top-6 left-6 px-3 py-1 text-xs font-mono tracking-widest bg-black/95 text-rose-500 uppercase border border-rose-500/20 rounded">
+                        @Model.Category
+                    </span>
+                </div>
             </div>
             
             <div class="flex justify-between items-center px-2 text-[10px] font-mono text-zinc-500">
@@ -35,16 +43,22 @@
         </div>
 
         <!-- Right Side: Details Side-panel -->
-        <div class="lg:col-span-5 space-y-8">
+        <div class="lg:col-span-5 space-y-8 bg-zinc-950/20 border border-zinc-900 p-8 rounded-xl relative backdrop-blur-sm">
+            <!-- Technical Brackets on Detail Sidebar -->
+            <div class="absolute -top-[1px] -left-[1px] w-3 h-3 border-t-2 border-l-2 border-zinc-800"></div>
+            <div class="absolute -top-[1px] -right-[1px] w-3 h-3 border-t-2 border-r-2 border-zinc-800"></div>
+            <div class="absolute -bottom-[1px] -left-[1px] w-3 h-3 border-b-2 border-l-2 border-zinc-800"></div>
+            <div class="absolute -bottom-[1px] -right-[1px] w-3 h-3 border-b-2 border-r-2 border-zinc-800"></div>
+
             <div>
-                <p class="text-rose-500 font-mono tracking-widest text-[10px] uppercase mb-1">// SPECIFICATION DATASHEET</p>
-                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white uppercase leading-none">
+                <p class="text-rose-500 font-mono tracking-[0.25em] text-[10px] uppercase mb-2">// SPECIFICATION DATASHEET</p>
+                <h1 class="text-3xl font-extrabold tracking-tight text-white uppercase leading-none">
                     @Model.Name
                 </h1>
             </div>
 
             <!-- Price Detail Box -->
-            <div class="bg-zinc-900/30 border border-zinc-900 p-6 rounded-lg font-mono flex justify-between items-center">
+            <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-lg font-mono flex justify-between items-center">
                 <span class="text-xs text-zinc-500 uppercase">CATALOG PRICE</span>
                 <span class="text-3xl font-extrabold text-white tracking-tighter">
                     $@Model.Price.ToString("N2")
@@ -62,21 +76,21 @@
             <!-- Compatible Vehicles -->
             <div class="space-y-4">
                 <h3 class="font-mono text-xs uppercase tracking-widest text-zinc-400 border-b border-zinc-900 pb-2">Compatible Platforms</h3>
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-2.5">
                     @if (Model.VehicleModParts != null && Model.VehicleModParts.Any())
                     {
                         foreach (var vmp in Model.VehicleModParts)
                         {
-                            <div class="flex items-center justify-between bg-zinc-900/20 border border-zinc-900/60 px-4 py-3 rounded text-xs font-mono">
-                                <span class="text-white">@vmp.Vehicle.Year @vmp.Vehicle.Make @vmp.Vehicle.Model</span>
-                                <span class="text-zinc-600 text-[10px]">VERIFIED MATCH</span>
+                            <div class="flex items-center justify-between bg-zinc-950 border border-zinc-900 px-4 py-3 rounded text-xs font-mono">
+                                <span class="text-zinc-300">@vmp.Vehicle.Year @vmp.Vehicle.Make @vmp.Vehicle.Model</span>
+                                <span class="text-rose-500/70 text-[9px] uppercase font-bold tracking-wider">[ VERIFIED MATCH ]</span>
                             </div>
                         }
                     }
                     else
                     {
-                        <div class="text-xs text-zinc-500 font-mono bg-zinc-900/10 border border-zinc-900/30 p-4 rounded text-center">
-                            Universal compatibility setup. Fits all platforms.
+                        <div class="text-xs text-zinc-600 font-mono bg-zinc-950 border border-zinc-900 p-4 rounded text-center uppercase tracking-widest">
+                            [ Universal Compatibility ]
                         </div>
                     }
                 </div>
@@ -84,11 +98,11 @@
 
             <!-- Management Buttons -->
             <div class="pt-6 border-t border-zinc-900 flex items-center gap-4 text-xs font-mono">
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="flex-1 text-center py-2.5 bg-white text-black hover:bg-rose-600 hover:text-white font-bold tracking-widest uppercase transition-all rounded">
-                    Edit Component
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="flex-1 text-center py-3 bg-white text-black hover:bg-rose-600 hover:text-white font-extrabold uppercase tracking-widest transition-all rounded shadow-md">
+                    [ EDIT SPEC ]
                 </a>
-                <a asp-action="Delete" asp-route-id="@Model.Id" class="flex-1 text-center py-2.5 bg-zinc-900 hover:bg-red-950/20 border border-zinc-800 hover:border-red-500/30 text-zinc-500 hover:text-red-500 tracking-widest uppercase transition-all rounded">
-                    Decommission
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="flex-1 text-center py-3 bg-zinc-950 hover:bg-red-950/20 border border-zinc-900 hover:border-red-500/30 text-zinc-500 hover:text-red-500 tracking-widest uppercase transition-all rounded">
+                    [ DECOMMISSION ]
                 </a>
             </div>
         </div>

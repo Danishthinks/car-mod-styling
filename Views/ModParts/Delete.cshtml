@@ -1,68 +1,74 @@
 @model Car_Mod_net.Models.ModPart
 
 @{
-    ViewData["Title"] = "DECOMMISSION COMPONENT SPEC";
+    ViewData["Title"] = "DECOMMISSION SPEC";
 }
 
 <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <!-- Danger Box Header -->
-    <div class="border border-red-500/30 bg-red-950/10 p-6 rounded-lg mb-10 text-center">
-        <span class="inline-block text-2xl mb-2 text-red-500">⚠️</span>
-        <h2 class="text-lg font-bold text-white uppercase tracking-wider">Decommission Component?</h2>
-        <p class="text-zinc-500 text-xs mt-1 font-mono uppercase">// THIS ACTION REMOVES ALL COMPATIBILITY MAPS AND PRODUCT SPECS PERMANENTLY</p>
+    <div class="border border-red-500/20 bg-red-950/10 p-6 rounded-lg mb-10 text-center font-mono">
+        <span class="inline-block text-lg mb-1 text-red-500">⚠️ WARNING // DECOMMISSION_PROTOCOL</span>
+        <h2 class="text-md font-bold text-white uppercase tracking-wider mt-1">REMOVE COMPONENT FROM INVENTORY?</h2>
+        <p class="text-zinc-500 text-[10px] mt-1 uppercase">// CRITICAL: THIS ACTION PERMANENTLY ERASES SPECIFICATION RECORD #@Model.Id</p>
     </div>
 
-    <!-- Details Summary -->
-    <div class="bg-zinc-950 border border-zinc-900 rounded-lg p-6 space-y-4 font-mono text-xs">
-        <div class="flex justify-between border-b border-zinc-900 pb-2">
-            <span class="text-zinc-500 uppercase">SPEC ID</span>
-            <span class="text-white font-bold">@Model.Id</span>
+    <!-- Details Summary (Stark Hazard Box) -->
+    <div class="bg-zinc-950 border border-zinc-900 rounded-lg p-8 relative space-y-5 font-mono text-xs shadow-xl shadow-red-950/[0.01]">
+        <!-- Technical Red Hazard Brackets -->
+        <div class="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-red-600"></div>
+        <div class="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-red-600"></div>
+        <div class="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-red-600"></div>
+        <div class="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-red-600"></div>
+
+        <div class="flex justify-between border-b border-zinc-900 pb-3">
+            <span class="text-zinc-500 uppercase tracking-widest text-[10px]">01 // SPEC IDENTIFIER</span>
+            <span class="text-white font-extrabold tracking-widest">#@Model.Id</span>
         </div>
-        <div class="flex justify-between border-b border-zinc-900 pb-2">
-            <span class="text-zinc-500 uppercase">CATEGORY</span>
-            <span class="text-white uppercase font-bold">@Model.Category</span>
+        <div class="flex justify-between border-b border-zinc-900 pb-3">
+            <span class="text-zinc-500 uppercase tracking-widest text-[10px]">02 // COMPONENT GROUP</span>
+            <span class="text-white uppercase font-extrabold tracking-wider">@Model.Category</span>
         </div>
-        <div class="flex justify-between border-b border-zinc-900 pb-2">
-            <span class="text-zinc-500 uppercase">NAME</span>
-            <span class="text-white font-bold text-sm">@Model.Name</span>
+        <div class="flex justify-between border-b border-zinc-900 pb-3">
+            <span class="text-zinc-500 uppercase tracking-widest text-[10px]">03 // DESIGNATION</span>
+            <span class="text-white font-bold text-sm uppercase tracking-tight">@Model.Name</span>
         </div>
-        <div class="flex justify-between border-b border-zinc-900 pb-2">
-            <span class="text-zinc-500 uppercase">PRICE</span>
-            <span class="text-rose-500 font-bold">$@Model.Price.ToString("N2")</span>
+        <div class="flex justify-between border-b border-zinc-900 pb-3">
+            <span class="text-zinc-500 uppercase tracking-widest text-[10px]">04 // UNIT VALUE</span>
+            <span class="text-rose-500 font-extrabold text-sm">$@Model.Price.ToString("N2")</span>
         </div>
-        <div class="border-b border-zinc-900 pb-2">
-            <span class="text-zinc-500 uppercase block mb-1">DESCRIPTION</span>
-            <p class="text-zinc-400 normal-case leading-relaxed font-sans text-xs">
+        <div class="border-b border-zinc-900 pb-3 font-sans">
+            <span class="text-zinc-500 font-mono uppercase tracking-widest text-[10px] block mb-1.5">05 // DESCRIPTION SPECS</span>
+            <p class="text-zinc-400 normal-case leading-relaxed text-xs">
                 @Model.Description
             </p>
         </div>
         <div>
-            <span class="text-zinc-500 uppercase block mb-1">PLATFORM COMPATIBILITIES</span>
-            <div class="flex flex-wrap gap-1 mt-1">
+            <span class="text-zinc-500 uppercase tracking-widest text-[10px] block mb-2">06 // PLATFORM COMPATIBILITY</span>
+            <div class="flex flex-wrap gap-1.5 mt-1">
                 @if (Model.VehicleModParts != null && Model.VehicleModParts.Any())
                 {
                     foreach (var vmp in Model.VehicleModParts)
                     {
-                        <span class="px-2 py-0.5 text-[9px] bg-zinc-900 border border-zinc-800 text-zinc-400 rounded">
+                        <span class="px-2.5 py-0.5 text-[9px] bg-zinc-900 border border-zinc-800 text-zinc-400 rounded">
                             @vmp.Vehicle.Year @vmp.Vehicle.Make @vmp.Vehicle.Model
                         </span>
                     }
                 }
                 else
                 {
-                    <span class="text-zinc-600">No compatible vehicles mapped.</span>
+                    <span class="text-zinc-700 font-bold uppercase text-[9px]">Universal // No direct link mapped</span>
                 }
             </div>
         </div>
     </div>
 
     <!-- Confirm Form -->
-    <form asp-action="Delete" method="post" class="mt-8 flex justify-center items-center gap-4">
+    <form asp-action="Delete" method="post" class="mt-10 flex justify-center items-center gap-4 font-mono text-xs">
         <input type="hidden" asp-for="Id" />
-        <button type="submit" class="px-6 py-2.5 text-xs font-mono uppercase tracking-widest text-white bg-red-600 hover:bg-red-700 transition-colors font-bold rounded">
-            Confirm Deletion
+        <button type="submit" class="px-6 py-3 text-white bg-red-700 hover:bg-red-800 transition-colors font-extrabold uppercase tracking-widest rounded shadow-lg">
+            [ DELETE // DECOMMISSION ]
         </button>
-        <a asp-action="Index" class="px-6 py-2.5 text-xs font-mono uppercase tracking-widest text-zinc-500 hover:text-zinc-300 transition-colors rounded">
+        <a asp-action="Index" class="px-6 py-3 text-zinc-500 hover:text-zinc-300 transition-colors uppercase tracking-widest">
             Cancel
         </a>
     </form>
