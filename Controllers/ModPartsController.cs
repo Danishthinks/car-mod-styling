@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Car_Mod_net.Data;
 using Car_Mod_net.Models;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Car_Mod_net.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ModPartsController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -1,0 +1,29 @@
+@{
+    ViewData["Title"] = "ACCESS DENIED";
+}
+
+<div class="max-w-md mx-auto px-4 py-24 text-center font-mono">
+    <!-- Danger Icon Indicator -->
+    <div class="inline-block border border-red-500/20 bg-red-950/10 p-5 rounded-full mb-6">
+        <span class="text-3xl text-red-500">🚫</span>
+    </div>
+
+    <!-- Alert Header -->
+    <p class="text-red-500 tracking-[0.25em] text-[10px] uppercase mb-2">// ERROR: INSUFFICIENT_PRIVILEGES</p>
+    <h1 class="text-3xl font-extrabold tracking-tight text-white uppercase mb-4">ACCESS RESTRICTED</h1>
+    
+    <p class="text-zinc-500 text-xs leading-relaxed max-w-sm mx-auto uppercase mb-10">
+        You do not have the clearance level required to interface with the inventory database console. 
+        Only authenticated administrators may modify catalog specifications.
+    </p>
+
+    <!-- Navigation Options -->
+    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 text-xs">
+        <a asp-controller="Home" asp-action="Index" class="w-full sm:w-auto px-6 py-3 bg-zinc-950 hover:bg-zinc-900 border border-zinc-900 hover:border-zinc-700 text-zinc-400 hover:text-white transition-all rounded font-bold uppercase tracking-widest">
+            [ RETURN HOME ]
+        </a>
+        <a asp-controller="Account" asp-action="Login" class="w-full sm:w-auto px-6 py-3 bg-white text-black hover:bg-rose-600 hover:text-white transition-all rounded font-extrabold uppercase tracking-widest">
+            [ LOG IN AS ADMIN ]
+        </a>
+    </div>
+</div>
