@@ -96,15 +96,18 @@
                 </div>
             </div>
 
-            <!-- Management Buttons -->
-            <div class="pt-6 border-t border-zinc-900 flex items-center gap-4 text-xs font-mono">
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="flex-1 text-center py-3 bg-white text-black hover:bg-rose-600 hover:text-white font-extrabold uppercase tracking-widest transition-all rounded shadow-md">
-                    [ EDIT SPEC ]
-                </a>
-                <a asp-action="Delete" asp-route-id="@Model.Id" class="flex-1 text-center py-3 bg-zinc-950 hover:bg-red-950/20 border border-zinc-900 hover:border-red-500/30 text-zinc-500 hover:text-red-500 tracking-widest uppercase transition-all rounded">
-                    [ DECOMMISSION ]
-                </a>
-            </div>
+            @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <!-- Management Buttons -->
+                <div class="pt-6 border-t border-zinc-900 flex items-center gap-4 text-xs font-mono">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="flex-1 text-center py-3 bg-white text-black hover:bg-rose-600 hover:text-white font-extrabold uppercase tracking-widest transition-all rounded shadow-md">
+                        [ EDIT SPEC ]
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="flex-1 text-center py-3 bg-zinc-950 hover:bg-red-950/20 border border-zinc-900 hover:border-red-500/30 text-zinc-500 hover:text-red-500 tracking-widest uppercase transition-all rounded">
+                        [ DECOMMISSION ]
+                    </a>
+                </div>
+            }
         </div>
 
     </div>
