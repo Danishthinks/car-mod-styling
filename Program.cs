@@ -98,7 +98,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+// Only redirect to HTTPS if NOT on Railway
+if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("PORT")))
+{
+    app.UseHttpsRedirection();
+}
+
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -111,3 +116,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
