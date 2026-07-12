@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-zinc-950">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] // RAW SPEC. Car Styling Catalog</title>
+    
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="RAW SPEC. Car Customization & Styling Catalog. Browse premium body kits, forged wheels, custom paint, performance exhaust systems and match compatibility." />
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            glow: '#ff3333',
+                            accent: '#ff0055',
+                            dark: '#0a0a0a',
+                            border: '#1f1f1f'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts: Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS styles if needed -->
+    <style>
+        /* Smooth custom glow scrollbar and styling details */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f1f1f;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff0055;
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.15);
+        }
+    </style>
+</head>
+<body class="h-full text-zinc-300 font-sans flex flex-col justify-between selection:bg-rose-600 selection:text-white">
+    <div>
+        <!-- Navigation Header -->
+        <header class="border-b border-zinc-900 bg-black/80 backdrop-blur-md sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center gap-8">
+                        <!-- Brand Logo -->
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="flex items-center gap-2 group">
+                            <span class="text-white font-extrabold tracking-widest text-lg group-hover:text-rose-500 transition-colors">
+                                RAW<span class="text-rose-500 group-hover:text-white transition-colors">SPEC.</span>
+                            </span>
+                            <span class="px-1.5 py-0.5 text-[9px] font-mono tracking-widest bg-zinc-900 text-zinc-500 rounded border border-zinc-800">
+                                CATALOG
+                            </span>
+                        </a>
+                        
+                        <!-- Main Menu links -->
+                        <nav class="hidden md:flex items-center gap-6">
+                            <a asp-area="" asp-controller="Home" asp-action="Index" class="text-xs uppercase tracking-widest text-zinc-100 hover:text-rose-500 transition-colors font-medium">
+                                Catalog
+                            </a>
+                            <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-xs uppercase tracking-widest text-zinc-400 hover:text-rose-500 transition-colors font-medium">
+                                Privacy
+                            </a>
+                        </nav>
+                    </div>
+                    
+                    <div class="flex items-center gap-4">
+                        <a href="#catalog" class="px-4 py-1.5 text-xs font-mono uppercase tracking-widest text-black bg-white hover:bg-rose-500 hover:text-white transition-all font-semibold rounded border border-transparent">
+                            Build Spec
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Body Wrapper -->
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-zinc-900 bg-zinc-950/50 py-8 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-zinc-600">
+            <div>
+                &copy; 2026 RAW SPEC. // Engineered for speed.
+            </div>
+            <div class="flex gap-4">
+                <a asp-area="" asp-controller="Home" asp-action="Privacy" class="hover:text-rose-500 transition-colors">
+                    Privacy Policy
+                </a>
+                <span>//</span>
+                <span class="text-zinc-500">v1.0.0-dev</span>
+            </div>
+        </div>
+    </footer>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

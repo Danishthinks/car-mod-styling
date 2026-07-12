@@ -1,0 +1,26 @@
+# Build and output directories
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+
+# User-specific files and IDE folders
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Database files (SQLite)
+*.db
+*.db-shm
+*.db-wal
+
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
