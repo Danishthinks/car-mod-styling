@@ -39,26 +39,44 @@
 
 <!-- Filter and Main Content Area -->
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10" id="catalog">
-    <!-- Category Filter Bar -->
-    <div class="flex flex-wrap gap-2 border-b border-zinc-900 pb-6 mb-10 text-xs font-mono">
-        <button onclick="filterCategory('All')" id="btn-all" class="filter-btn px-4 py-2 border border-rose-500/30 text-rose-500 bg-rose-950/20 hover:border-rose-500 transition-all uppercase tracking-widest rounded">
-            [ ALL PARTS ]
-        </button>
-        <button onclick="filterCategory('Body Kit')" id="btn-bodykit" class="filter-btn px-4 py-2 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500 transition-all uppercase tracking-widest rounded">
-            Body Kits
-        </button>
-        <button onclick="filterCategory('Wheels')" id="btn-wheels" class="filter-btn px-4 py-2 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500 transition-all uppercase tracking-widest rounded">
-            Wheels
-        </button>
-        <button onclick="filterCategory('Custom Paint')" id="btn-paint" class="filter-btn px-4 py-2 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500 transition-all uppercase tracking-widest rounded">
-            Paint & Wraps
-        </button>
-        <button onclick="filterCategory('Window Tint')" id="btn-tint" class="filter-btn px-4 py-2 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500 transition-all uppercase tracking-widest rounded">
-            Stealth Tint
-        </button>
-        <button onclick="filterCategory('Exhaust')" id="btn-exhaust" class="filter-btn px-4 py-2 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500 transition-all uppercase tracking-widest rounded">
-            Exhausts
-        </button>
+    <!-- Dual-Filter Panel -->
+    <div class="flex flex-col lg:flex-row gap-6 justify-between items-start lg:items-center border-b border-zinc-900 pb-6 mb-10 text-xs font-mono">
+        <!-- Category Filters -->
+        <div class="flex flex-wrap gap-2">
+            <button onclick="setCategory('All')" id="btn-all" class="filter-btn px-4 py-2 border border-rose-500/30 text-rose-500 bg-rose-950/20 hover:border-rose-500 transition-all uppercase tracking-widest rounded">
+                [ All Parts ]
+            </button>
+            <button onclick="setCategory('Body Kit')" id="btn-bodykit" class="filter-btn px-4 py-2 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500 transition-all uppercase tracking-widest rounded">
+                Body Kits
+            </button>
+            <button onclick="setCategory('Wheels')" id="btn-wheels" class="filter-btn px-4 py-2 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500 transition-all uppercase tracking-widest rounded">
+                Wheels
+            </button>
+            <button onclick="setCategory('Custom Paint')" id="btn-paint" class="filter-btn px-4 py-2 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500 transition-all uppercase tracking-widest rounded">
+                Paint & Wraps
+            </button>
+            <button onclick="setCategory('Window Tint')" id="btn-tint" class="filter-btn px-4 py-2 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500 transition-all uppercase tracking-widest rounded">
+                Stealth Tint
+            </button>
+            <button onclick="setCategory('Exhaust')" id="btn-exhaust" class="filter-btn px-4 py-2 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500 transition-all uppercase tracking-widest rounded">
+                Exhausts
+            </button>
+        </div>
+
+        <!-- Vehicle Platform Compatibility Dropdown -->
+        <div class="flex items-center gap-3 w-full lg:w-auto">
+            <label for="vehicle-select" class="text-zinc-500 uppercase tracking-wider text-[10px]">PLATFORM MATCH:</label>
+            <select id="vehicle-select" onchange="setVehicle(this.value)" class="bg-zinc-900 border border-zinc-800 focus:border-rose-500 text-zinc-300 rounded px-4 py-2 outline-none transition-colors w-full lg:w-64 uppercase tracking-wider text-xs">
+                <option value="All">[ ALL VEHICLES ]</option>
+                @if (ViewBag.Vehicles != null)
+                {
+                    foreach (var vehicle in (List<Car_Mod_net.Models.Vehicle>)ViewBag.Vehicles)
+                    {
+                        <option value="@vehicle.Id">@vehicle.Year @vehicle.Make @vehicle.Model</option>
+                    }
+                }
+            </select>
+        </div>
     </div>
 
     <!-- Catalog Grid -->
@@ -67,7 +85,8 @@
         {
             var cleanCategoryClass = part.Category.Replace(" ", "").ToLower();
             <div class="part-card group border border-zinc-900 bg-zinc-950/40 rounded-lg overflow-hidden hover:border-zinc-700 transition-all duration-300 flex flex-col justify-between" 
-                 data-category="@part.Category">
+                 data-category="@part.Category"
+                 data-vehicles="@(part.VehicleModParts != null ? string.Join(",", part.VehicleModParts.Select(vmp => vmp.VehicleId)) : "")">
                 
                 <div>
                     <!-- Part Image Block -->
@@ -92,6 +111,10 @@
                         <h3 class="text-lg font-bold text-white tracking-tight uppercase group-hover:text-rose-500 transition-colors">
                             @part.Name
                         </h3>
+                        
+                        <p class="text-zinc-500 text-xs mt-2 line-clamp-2 leading-relaxed">
+                            @part.Description
+                        </p>
                         
                         <!-- Compatibility Information -->
                         <div class="mt-6 border-t border-zinc-900/50 pt-4">
@@ -119,9 +142,9 @@
 
                 <!-- Footer Card Action -->
                 <div class="px-6 pb-6 pt-2">
-                    <button class="w-full py-2 bg-zinc-900 hover:bg-rose-600 hover:text-white border border-zinc-800 hover:border-transparent text-xs font-mono tracking-widest uppercase transition-all rounded font-semibold text-zinc-400">
-                        Select Component
-                    </button>
+                    <a asp-controller="ModParts" asp-action="Details" asp-route-id="@part.Id" class="block w-full text-center py-2 bg-zinc-900 hover:bg-rose-600 hover:text-white border border-zinc-800 hover:border-transparent text-xs font-mono tracking-widest uppercase transition-all rounded font-semibold text-zinc-400">
+                        View Component Details
+                    </a>
                 </div>
 
             </div>
@@ -131,17 +154,19 @@
 
 @section Scripts {
     <script>
-        function filterCategory(category) {
-            const cards = document.querySelectorAll('.part-card');
-            const buttons = document.querySelectorAll('.filter-btn');
+        let activeCategory = 'All';
+        let activeVehicle = 'All';
 
-            // Reset active button styling
+        function setCategory(category) {
+            activeCategory = category;
+            
+            // Manage category buttons active classes
+            const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => {
-                btn.classList.remove('border-rose-500/30', 'text-rose-500', 'bg-rose-950/20');
+                btn.classList.remove('border-rose-500/30', 'text-rose-500', 'bg-rose-950/20', 'border-rose-500');
                 btn.classList.add('border-zinc-800', 'text-zinc-400');
             });
 
-            // Set active class on target button
             let targetBtnId = 'btn-all';
             if (category === 'Body Kit') targetBtnId = 'btn-bodykit';
             else if (category === 'Wheels') targetBtnId = 'btn-wheels';
@@ -155,10 +180,26 @@
                 activeBtn.classList.add('border-rose-500/30', 'text-rose-500', 'bg-rose-950/20', 'border-rose-500');
             }
 
-            // Show/hide cards
+            applyFilters();
+        }
+
+        function setVehicle(vehicleId) {
+            activeVehicle = vehicleId;
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const cards = document.querySelectorAll('.part-card');
+
             cards.forEach(card => {
                 const cardCategory = card.getAttribute('data-category');
-                if (category === 'All' || cardCategory === category) {
+                const cardVehiclesAttr = card.getAttribute('data-vehicles');
+                const cardVehicles = cardVehiclesAttr ? cardVehiclesAttr.split(',') : [];
+
+                const matchCategory = (activeCategory === 'All' || cardCategory === activeCategory);
+                const matchVehicle = (activeVehicle === 'All' || cardVehicles.includes(activeVehicle));
+
+                if (matchCategory && matchVehicle) {
                     card.style.display = 'flex';
                 } else {
                     card.style.display = 'none';

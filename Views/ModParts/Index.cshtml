@@ -1,0 +1,92 @@
+@model IEnumerable<Car_Mod_net.Models.ModPart>
+
+@{
+    ViewData["Title"] = "INVENTORY MANAGEMENT";
+}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-zinc-900 pb-6 mb-10 gap-4">
+        <div>
+            <p class="text-rose-500 font-mono tracking-widest text-[10px] uppercase mb-1">// SYSTEM CONTROL PANEL</p>
+            <h1 class="text-3xl font-extrabold tracking-tight text-white uppercase">MANAGE CATALOG</h1>
+        </div>
+        <div>
+            <a asp-action="Create" class="px-5 py-2 text-xs font-mono uppercase tracking-widest text-black bg-white hover:bg-rose-500 hover:text-white transition-all font-semibold rounded shadow-md">
+                + Add Custom Component
+            </a>
+        </div>
+    </div>
+
+    <!-- Table Container -->
+    <div class="bg-black/40 border border-zinc-900 rounded-lg overflow-hidden backdrop-blur-sm">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs font-mono">
+                <thead>
+                    <tr class="border-b border-zinc-900 text-zinc-500 uppercase tracking-widest bg-zinc-950/80">
+                        <th class="py-4 px-6 font-medium">Category</th>
+                        <th class="py-4 px-6 font-medium">Component Name</th>
+                        <th class="py-4 px-6 font-medium text-right">Price</th>
+                        <th class="py-4 px-6 font-medium">Compatibility</th>
+                        <th class="py-4 px-6 font-medium text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-zinc-900/60 text-zinc-300">
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr class="hover:bg-zinc-900/30 transition-colors">
+                                <td class="py-4 px-6">
+                                    <span class="px-2 py-0.5 text-[9px] bg-zinc-900 border border-zinc-800 text-zinc-400 rounded uppercase">
+                                        @item.Category
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6 font-semibold text-white tracking-tight">
+                                    @item.Name
+                                </td>
+                                <td class="py-4 px-6 text-right font-bold text-zinc-100">
+                                    $@item.Price.ToString("N2")
+                                </td>
+                                <td class="py-4 px-6 max-w-xs">
+                                    <div class="flex flex-wrap gap-1">
+                                        @if (item.VehicleModParts != null && item.VehicleModParts.Any())
+                                        {
+                                            foreach (var vmp in item.VehicleModParts)
+                                            {
+                                                <span class="px-1.5 py-0.5 text-[9px] bg-zinc-950 text-zinc-500 rounded border border-zinc-900/80">
+                                                    @vmp.Vehicle.Model
+                                                </span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="text-zinc-600 text-[10px]">Universal</span>
+                                        }
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 text-center">
+                                    <div class="flex justify-center items-center gap-4 text-[10px] uppercase font-bold tracking-widest">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="text-zinc-400 hover:text-white transition-colors">Edit</a>
+                                        <span class="text-zinc-800">/</span>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="text-rose-500/80 hover:text-rose-500 transition-colors">View</a>
+                                        <span class="text-zinc-800">/</span>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="text-zinc-600 hover:text-rose-500 transition-colors">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="py-8 text-center text-zinc-600">
+                                NO COMPONENTS LOADED IN THE DATABASE.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -24,6 +24,7 @@ public class HomeController : Controller
                 .ThenInclude(vmp => vmp.Vehicle)
             .ToListAsync();
             
+        ViewBag.Vehicles = await _context.Vehicles.ToListAsync();
         return View(modParts);
     }
 

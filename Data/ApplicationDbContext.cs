@@ -42,12 +42,12 @@ namespace Car_Mod_net.Data
 
             // Seed ModParts
             modelBuilder.Entity<ModPart>().HasData(
-                new ModPart { Id = 1, Category = "Body Kit", Name = "Vented Carbon Fiber Hood", Price = 1850.00m, ImageUrl = "/images/carbon-hood.jpg" },
-                new ModPart { Id = 2, Category = "Wheels", Name = "Forged Monoblock Track Wheels", Price = 4200.00m, ImageUrl = "/images/forged-wheels.jpg" },
-                new ModPart { Id = 3, Category = "Custom Paint", Name = "Satin Liquid Chrome Wrap", Price = 3500.00m, ImageUrl = "/images/chrome-wrap.jpg" },
-                new ModPart { Id = 4, Category = "Body Kit", Name = "Carbon Rear Wing Spoiler", Price = 2200.00m, ImageUrl = "/images/rear-wing.jpg" },
-                new ModPart { Id = 5, Category = "Window Tint", Name = "Ceramic Infrared Stealth Tint", Price = 650.00m, ImageUrl = "/images/stealth-tint.jpg" },
-                new ModPart { Id = 6, Category = "Exhaust", Name = "Titanium Active Valve Exhaust", Price = 3800.00m, ImageUrl = "/images/titanium-exhaust.jpg" }
+                new ModPart { Id = 1, Category = "Body Kit", Name = "Vented Carbon Fiber Hood", Price = 1850.00m, ImageUrl = "/images/carbon-hood.jpg", Description = "Ultra-lightweight aerospace-grade carbon fiber hood with integrated aerodynamic vents. Optimizes engine cooling and reduces front-axle weight." },
+                new ModPart { Id = 2, Category = "Wheels", Name = "Forged Monoblock Track Wheels", Price = 4200.00m, ImageUrl = "/images/forged-wheels.jpg", Description = "Track-ready monoblock forged aluminum wheels designed to withstand intense lateral load. Finished in raw matte obsidian." },
+                new ModPart { Id = 3, Category = "Custom Paint", Name = "Satin Liquid Chrome Wrap", Price = 3500.00m, ImageUrl = "/images/chrome-wrap.jpg", Description = "Multi-layered premium vinyl wrap with a liquid chrome satin finish. Protects original paint while delivering an aggressive, reflective styling." },
+                new ModPart { Id = 4, Category = "Body Kit", Name = "Carbon Rear Wing Spoiler", Price = 2200.00m, ImageUrl = "/images/rear-wing.jpg", Description = "Adjustable dual-plane carbon fiber rear wing engineered to maximize downforce and stability at high speeds." },
+                new ModPart { Id = 5, Category = "Window Tint", Name = "Ceramic Infrared Stealth Tint", Price = 650.00m, ImageUrl = "/images/stealth-tint.jpg", Description = "Next-gen nano-ceramic film providing up to 99% infrared heat rejection and dark stealth styling without signal interference." },
+                new ModPart { Id = 6, Category = "Exhaust", Name = "Titanium Active Valve Exhaust", Price = 3800.00m, ImageUrl = "/images/titanium-exhaust.jpg", Description = "Titanium active-valve catback exhaust system with vacuum-controlled valves. Features blue-burnt tips and delivers a raw, unrestrained acoustic profile." }
             );
 
             // Seed VehicleModParts compatibility mapping
